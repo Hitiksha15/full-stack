@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hitiksha Chavda</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #eee;
+            text-align: center;
+        }
+
+        .profile {
+            width: 350px;
+            margin: 80px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+        }
+
+        h1 {
+            color: purple;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: purple;
+            color: white;
+            border: 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="profile">
+        <h1>Hitiksha Chavda</h1>
+        <h3>MCA Student</h3>
+
+        <p>I am pursuing MCA and interested in Web Development.</p>
+
+        <h3>Skills</h3>
+        <p>HTML | CSS | JavaScript</p>
+
+        <h3>Education</h3>
+        <p>Master of Computer Applications (MCA)</p>
+
+        <button onclick="show()">Contact Me</button>
+        <p id="msg"></p>
+    </div>
+
+    <script>
+        function show() {
+            document.getElementById("msg").innerHTML =
+                "Thank you for visiting!";
+        }
+    </script>
+
+</body>
+</html>
