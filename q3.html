@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Calculator</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+
+            padding: 30px;
+            border-radius: 15px;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            margin-bottom: 5px;
+
+            font-weight: bold;
+            color: #444;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+
+            border: 1px solid #ccc;
+            border-radius: 8px;
+
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+
+            padding: 13px;
+            margin-top: 20px;
+
+            border: none;
+            border-radius: 8px;
+
+            background-color: #667eea;
+            color: white;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4c63d2;
+        }
+
+        .clear {
+            background-color: #e74c3c;
+        }
+
+        .clear:hover {
+            background-color: #c0392b;
+        }
+
+        #result {
+            margin-top: 25px;
+
+            padding: 20px;
+
+            background-color: #f4f6ff;
+
+            border-radius: 10px;
+
+            display: none;
+        }
+
+        #result h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        #result p {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        .grade {
+            font-size: 20px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        @media (max-width: 500px) {
+
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🎓 Student Calculator</h1>
+
+        <!-- Student Name -->
+        <label for="studentName">Student Name</label>
+        <input type="text" id="studentName" placeholder="Enter student name">
+
+        <!-- Marks -->
+        <label for="htmlMarks">HTML Marks</label>
+        <input type="number" id="htmlMarks" placeholder="Enter marks" min="0" max="100">
+
+        <label for="cssMarks">CSS Marks</label>
+        <input type="number" id="cssMarks" placeholder="Enter marks" min="0" max="100">
+
+        <label for="jsMarks">JavaScript Marks</label>
+        <input type="number" id="jsMarks" placeholder="Enter marks" min="0" max="100">
+
+        <label for="pythonMarks">Python Marks</label>
+        <input type="number" id="pythonMarks" placeholder="Enter marks" min="0" max="100">
+
+        <button onclick="calculateResult()">
+            Calculate Result
+        </button>
+
+        <button class="clear" onclick="clearResult()">
+            Clear
+        </button>
+
+
+        <!-- Result -->
+        <div id="result">
+
+            <h2>Student Result</h2>
+
+            <p>
+                <strong>Name:</strong>
+                <span id="displayName"></span>
+            </p>
+
+            <p>
+                <strong>Total Marks:</strong>
+                <span id="total"></span>
+            </p>
+
+            <p>
+                <strong>Average:</strong>
+                <span id="average"></span>
+            </p>
+
+            <p>
+                <strong>Grade:</strong>
+                <span class="grade" id="grade"></span>
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                <span id="status"></span>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        // ==========================================
+        // 1. VARIABLES
+        // ==========================================
+
+        let studentName;
+        let totalMarks;
+        let average;
+        let grade;
+
+
+        // ==========================================
+        // 2. ARRAY
+        // ==========================================
+
+        let subjects = [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Python"
+        ];
+
+
+        // ==========================================
+        // 3. OBJECT
+        // ==========================================
+
+        let student = {
+            name: "",
+            marks: [],
+            total: 0,
+            average: 0,
+            grade: "",
+            status: ""
+        };
+
+
+        // ==========================================
+        // 4. CALCULATE FUNCTION
+        // ==========================================
+
+        function calculateResult() {
+
+            // Get student name
+            studentName =
+                document.getElementById("studentName").value;
+
+
+            // Get marks
+            let html =
+                Number(document.getElementById("htmlMarks").value);
+
+            let css =
+                Number(document.getElementById("cssMarks").value);
+
+            let javascript =
+                Number(document.getElementById("jsMarks").value);
+
+            let python =
+                Number(document.getElementById("pythonMarks").value);
+
+
+            // Check name
+            if (studentName === "") {
+
+                alert("Please enter student name.");
+                return;
+            }
+
+
+            // Check marks
+            if (
+                html < 0 || html > 100 ||
+                css < 0 || css > 100 ||
+                javascript < 0 || javascript > 100 ||
+                python < 0 || python > 100
+            ) {
+
+                alert("Please enter marks between 0 and 100.");
+                return;
+            }
+
+
+            // Store marks in object
+            student.name = studentName;
+
+            student.marks = [
+                html,
+                css,
+                javascript,
+                python
+            ];
+
+
+            // Calculate total
+            totalMarks =
+                html +
+                css +
+                javascript +
+                python;
+
+
+            student.total = totalMarks;
+
+
+            // Calculate average
+            average = totalMarks / subjects.length;
+
+            student.average = average;
+
+
+            // Find grade
+            if (average >= 90) {
+
+                grade = "A+";
+
+            } else if (average >= 80) {
+
+                grade = "A";
+
+            } else if (average >= 70) {
+
+                grade = "B";
+
+            } else if (average >= 60) {
+
+                grade = "C";
+
+            } else if (average >= 50) {
+
+                grade = "D";
+
+            } else {
+
+                grade = "F";
+            }
+
+
+            student.grade = grade;
+
+
+            // Find pass/fail
+            if (average >= 40) {
+
+                student.status = "PASS";
+
+            } else {
+
+                student.status = "FAIL";
+            }
+
+
+            // ==========================================
+            // 5. DOM MANIPULATION
+            // ==========================================
+
+            document.getElementById("displayName").textContent =
+                student.name;
+
+            document.getElementById("total").textContent =
+                student.total + " / 400";
+
+            document.getElementById("average").textContent =
+                student.average.toFixed(2) + "%";
+
+            document.getElementById("grade").textContent =
+                student.grade;
+
+            document.getElementById("status").textContent =
+                student.status;
+
+
+            // Show result
+            document.getElementById("result").style.display =
+                "block";
+        }
+
+
+        // ==========================================
+        // 6. CLEAR FUNCTION
+        // ==========================================
+
+        function clearResult() {
+
+            document.getElementById("studentName").value = "";
+
+            document.getElementById("htmlMarks").value = "";
+
+            document.getElementById("cssMarks").value = "";
+
+            document.getElementById("jsMarks").value = "";
+
+            document.getElementById("pythonMarks").value = "";
+
+
+            document.getElementById("result").style.display =
+                "none";
+        }
+
+    </script>
+
+</body>
+
+</html>
